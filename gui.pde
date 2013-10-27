@@ -3,10 +3,10 @@ class GHighScore
   int amnt = 8;
   int[] scores = new int[amnt];
   String[] names = new String[amnt];
-  PImage img;
+  PImage img = loadImage("splash.png");
+ 
   GHighScore()
   {
-    img = loadImage("splash.png");
     BufferedReader reader;
     reader = createReader("hScore.txt");
     for(int i=0; i<amnt; i++)
@@ -63,15 +63,19 @@ class GHighScore
       keyReady=true;
     }
     image(img,0,0);
-    textFont(font,18);
-    // this adds a blinking cursor after your text, at the expense of redrawing everything every frame
 
     fill(rColor[jk]);
     if(jk>0)
       jk--;
     else
       jk=6;
-    text("You made it in the highscore list!",width/2-75,45);
+    text("You made it in the highscore list!",width/2-75,45/4);
+    fill(rColor[jk]);
+    if(jk>0)
+      jk--;
+    else
+      jk=6;
+    text("Try to type your name!",width/2,45);
     fill(rColor[jk]);
     if(jk>0)
       jk--;
@@ -92,10 +96,13 @@ class GHighScore
     image(img,0,0);
     textSize(24);
     jk=6;
+    text("Along The Ridge",width/2,1*45);
+    fill(0);
+    text("Instructions: Catch rainbows by traveling right",width/2,2*45);
+    text("Controls: W-Forward, D-Right.",width/2,3*45);
     fill(rColor[jk--]);
-    text("Travel Right",width/2-50,3*45);
-    fill(rColor[jk--]);
-    text("Highscores:",width/2-50,4*45);
+    text("Highscores:",width/2,4*45);
+    textAlign(LEFT);
     for(int i=0; i<amnt; i++)
     {
       fill(rColor[jk]);
@@ -103,11 +110,12 @@ class GHighScore
         jk--;
       else
         jk=6;
-      text("Rank:"+(i+1)+" "+names[i]+" catched "+scores[i]+" rainbows",width/2-200  ,  (5.0+i)*45 );
+      text("#"+(i+1)+" "+names[i]+" : "+scores[i]+" rainbows",width/2-200  ,  (5.0+i)*45 );
     }
     int rnd = int(noise(time)*6.0);
     fill(rColor[rnd]);
-    text("Press space to continue...",width/2-50,(5.0+amnt)*45);
+    textAlign(CENTER);
+    text("Press space to continue...",width/2,(5.0+amnt)*45);
 
 
   }
@@ -154,12 +162,13 @@ class GHighScore
     }
   }
 }
+GDistance dist;
 GRainbows rainBows;
 class Gui
 {
-  GDistance dist=new GDistance();
   Gui()
   {
+    dist=new GDistance();
     rainBows = new GRainbows();
   }
   void update()
@@ -176,7 +185,7 @@ class GDistance
   void update(GRainbows rr)
   {
     textSize(16);
-    if(0.01>terrain.extraX%terrain.modu)
+    if(1.0>terrain.extraX%terrain.modu)
     {
       if(canDo)
       {
@@ -192,9 +201,15 @@ class GDistance
       else
         first=false;
     }
-    String dis = "Distance to rainbow: "+Float.toString(terrain.modu-(terrain.extraX-gjor));
-    fill(255);
-    text(dis,width/2.0-125,height/8.0);
+    String dis = "Distance to rainbow: "+int(terrain.modu-(terrain.extraX-gjor));
+    String distToLoss = "Distance from loss: "+int(height-body.getY());
+    textAlign(CENTER);
+    if(rainbow.y>height)
+    {
+      fill(255);
+      text(dis,width/2.0,height/8.0);
+      text(distToLoss,width/4.0,height-height/8.0);
+    }
   }
 }
 class GRainbows
@@ -202,6 +217,13 @@ class GRainbows
   int rainbows = 0;
   void update()
   {
-    text("Rainbows Collected: "+rainbows,100,50);
+    textAlign(CENTER);
+    if(rainbow.y>height)
+      text("Rainbows Collected: "+rainbows,width/2,height/16.0);
+    else
+    {
+      textSize(24);
+      text("Rainbows Collected: "+rainbows+"!!!",width/2,height/8.0);
+    }
   }
 }

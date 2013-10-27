@@ -1,4 +1,6 @@
 
+import ddf.minim.analysis.*;
+import ddf.minim.*;
 import fisica.*;
 class Main
 {
@@ -8,16 +10,17 @@ class Main
     lights();
     initCam();
     world= new FWorld();
-    world.setGravity(0,200);
+    world.setGravity(0,500);
     player = new Player(width/2.0,10);
     rainbow = new Rainbow(body);
     terrain = new Terrain();
     terrain.init();
+    soundH.init();
     gui = new Gui();
   }
   void draw()
   {
-    handleTime();
+    soundH.update();
     background(0);
     lights();
     rainbow.update();
@@ -37,16 +40,21 @@ class Main
 }
 FWorld world;
 Terrain terrain;
-SoundH soundH;
 Player player=null;
 FCircle body=null;
 Rainbow rainbow;
 Gui gui;
 Main main= new Main();
-GHighScore hScore;
+GHighScore hScore;  
 PFont font;
+FFT fft;
+SoundH soundH;
+Minim minim;
+AudioPlayer audio;
 void setup()
 {
+  minim = new Minim(this);
+  soundH = new SoundH();
   initrColors();
   Fisica.init(this);
   font = createFont("Helvetica",18);
@@ -57,8 +65,12 @@ void setup()
 int gameMode = 1;
 void draw()
 {
+  handleTime();
   if(body!=null)
   {
+    if(body.isResting())
+      exit();
+        
     if(body.getY()>height&&gameMode==0)
     {
       if(hScore.compareToLowest(rainBows.rainbows))

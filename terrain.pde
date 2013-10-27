@@ -1,6 +1,6 @@
 class Terrain
 {
-  float cameraRotation = -PI/6.0;
+  float cameraRotation = -PI/4.0;
   void render()
   {
     pushMatrix();
@@ -30,18 +30,28 @@ class Terrain
   float xSpeed = 0.0;
   float[] active = new float[xS];
   boolean rainB = false;
-  float modu=200.0;
+  float modu=300.0;
+  boolean firstHax=true;
+  float haxValue =0.0;
   private void makeCubes()
   {
+    haxValue += dt*mSpeed;
     float heightMax = 6000.0;
     int j=0;
     int index = 0;
     extraX += xSpeed;
-    if(0.01>extraX%modu)
+    if(firstHax&&haxValue>1000.0)
+    {
+      firstHax=false;
+      player.up=false;
+    }
+    if(1.0>extraX%modu)
     {
       if(rainB)
       {
         rainbow.doRainbow();
+        sfx.cue(0);
+        sfx.play();
         rainB=false;
       }
     }
@@ -94,7 +104,7 @@ class Terrain
       float hMod = 1.0-musExtra[index]+0.1;
       color seaGreen = color(32*lMod,117*lMod,255*lMod);
       color forestGreen = color(34*hMod,255*hMod,34*hMod);
-      rotate(cameraRotation,1,0,0);
+      rotate(-cameraRotation,1,0,0);
       fill(seaGreen*forestGreen);
       float mg = gap/2.0;
       beginShape();

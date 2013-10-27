@@ -24,9 +24,27 @@ class Rainbow
   float x=0;
   float y=height;
   float mSpeed = 100.0;
+  int jj=0;
+  boolean hasChanged = false;
   void rainbowUpdate()
   {
     y += dt*mSpeed;
+    if(player.pwr>2.0)
+    {
+      hasChanged=true;
+    }
+    else
+    {
+      if(hasChanged)
+      {
+        if(jj<6)
+          jj++;
+        else
+          jj=0;
+        hasChanged=false;
+      }
+    }
+    tint(player.pwr);
     image(img,x,y);
   }
   float highest = 0.0;

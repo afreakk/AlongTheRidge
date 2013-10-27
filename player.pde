@@ -4,7 +4,7 @@ class Player
   {
     body = new FCircle(50);
     body.setAllowSleeping(false);
-    body.setStroke(0);
+    body.setStroke(255);
     body.setStrokeWeight(2);
     body.setFill(255);
     body.setFriction(0);
@@ -16,22 +16,23 @@ class Player
   boolean up = true;
   boolean jump = false;
   boolean down = false;
-  void updateKeys()
+  void updateKeys(boolean state)
   {
     if(key == 'a')
-      left = keyPressed;
+      left = state;
     if(key == 'd')
-      right = keyPressed;
+      right = state;
     if(key == 'w')
-      up = keyPressed;
+      up = state;
     if(key == 's')
-      down = keyPressed;
+      down = state;
     if(key == ' ')
-      jump = keyPressed;
+      jump = state;
   }
+  float pwr=0.0;
   void updateMovement()
   {
-    float xSpeed = 1.0;
+    float xSpeed = dt*20.0;
     float xMovement = 0.0;
     if(right)
       xMovement += xSpeed;
@@ -42,6 +43,13 @@ class Player
     if(up)
       zMovement += zSpeed;
     terrain.controlMovement(zMovement);
+    pwr = 0.0;
+    for(int i=0; i<128; i++)
+      pwr += fft.getBand(i);
+    body.setFill(pwr);
+    body.setStrokeWeight(pwr/200.0);
+    body.setStroke(pwr);
+    body.addForce(0,-pwr*2.0);
 
   }
 }
@@ -49,10 +57,10 @@ int count = 0;
 void keyPressed()
 {
   if(player!=null)
-  player.updateKeys();
+  player.updateKeys(true);
 }
 void keyReleased()
 {
   if(player!=null)
-  player.updateKeys();
+  player.updateKeys(false);
 }
