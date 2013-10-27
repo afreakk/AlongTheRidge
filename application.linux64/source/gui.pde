@@ -8,7 +8,7 @@ class GHighScore
   GHighScore()
   {
     BufferedReader reader;
-    reader = createReader("hScore.txt");
+    reader = createReader("data/hScore.txt");
     for(int i=0; i<amnt; i++)
     {
       String line;
@@ -135,7 +135,7 @@ class GHighScore
   void toFile()
   {
     PrintWriter out;
-    out = createWriter("hScore.txt");
+    out = createWriter("data/hScore.txt");
     for(int i=0; i<amnt; i++)
       out.println(names[i]+'/'+scores[i]);
     out.flush();
