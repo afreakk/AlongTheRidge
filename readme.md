@@ -4,5 +4,5 @@
 <li>Music : http://freemusicarchive.org/music/crk/Disconnect/06__crk_-_interlude_2 </li>
 <li>resources: Processing, minim(audio) ,fisica(physics) </li>
 <li>To run open the folder that matches your operating system and open the file vimtest* </li>
-<li>[linux64](http://www.filedropper.com/applicationlinux64tar"Linux64")
+<li>[linux64](http://www.filedropper.com/applicationlinux64tar"Linux64") linux64</li>
 </ul>
