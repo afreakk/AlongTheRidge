@@ -69,19 +69,19 @@ class GHighScore
       jk--;
     else
       jk=6;
-    text("You made it in the highscore list!",width/2-75,45/4);
+    text("You made it in the highscore list!",width/2-75,45);
     fill(rColor[jk]);
     if(jk>0)
       jk--;
     else
       jk=6;
-    text("Try to type your name!",width/2,45);
+    text("Try to type your name!",width/2,90);
     fill(rColor[jk]);
     if(jk>0)
       jk--;
     else
       jk=6;
-    text("Name: "+typedText+(frameCount/10 % 2 == 0 ? "_" : ""), width/2-150, 90);
+    text("Name: "+typedText+(frameCount/10 % 2 == 0 ? "_" : ""), width/2-150, 90+45);
     return false;
   }
   boolean compareToLowest(int nScore)
@@ -93,6 +93,7 @@ class GHighScore
   int jk=6;
   void update()
   {
+    tint(255);
     image(img,0,0);
     textSize(24);
     jk=6;

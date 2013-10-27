@@ -145,6 +145,8 @@ class SoundH
     {
       if(!audio.isPlaying())
       {
+        if(!(audio.length()>audio.position()))
+          audio.cue(0);
         audio.play();
       }
     }
@@ -231,19 +233,19 @@ class GHighScore
       jk--;
     else
       jk=6;
-    text("You made it in the highscore list!",width/2-75,45/4);
+    text("You made it in the highscore list!",width/2-75,45);
     fill(rColor[jk]);
     if(jk>0)
       jk--;
     else
       jk=6;
-    text("Try to type your name!",width/2,45);
+    text("Try to type your name!",width/2,90);
     fill(rColor[jk]);
     if(jk>0)
       jk--;
     else
       jk=6;
-    text("Name: "+typedText+(frameCount/10 % 2 == 0 ? "_" : ""), width/2-150, 90);
+    text("Name: "+typedText+(frameCount/10 % 2 == 0 ? "_" : ""), width/2-150, 90+45);
     return false;
   }
   public boolean compareToLowest(int nScore)
@@ -255,6 +257,7 @@ class GHighScore
   int jk=6;
   public void update()
   {
+    tint(255);
     image(img,0,0);
     textSize(24);
     jk=6;
@@ -408,7 +411,7 @@ class Player
     body.setAllowSleeping(false);
     body.setStroke(255);
     body.setStrokeWeight(2);
-    body.setFill(255);
+    body.setFill(255,255,255);
     body.setFriction(0);
     body.setPosition(x,y);
     world.add(body);
@@ -448,7 +451,6 @@ class Player
     pwr = 0.0f;
     for(int i=0; i<128; i++)
       pwr += fft.getBand(i);
-    body.setFill(pwr);
     body.setStrokeWeight(pwr/200.0f);
     body.setStroke(pwr);
     body.addForce(0,-pwr*2.0f);

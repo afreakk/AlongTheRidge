@@ -33,6 +33,8 @@ class SoundH
     {
       if(!audio.isPlaying())
       {
+        if(!(audio.length()>audio.position()))
+          audio.cue(0);
         audio.play();
       }
     }

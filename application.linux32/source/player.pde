@@ -6,7 +6,7 @@ class Player
     body.setAllowSleeping(false);
     body.setStroke(255);
     body.setStrokeWeight(2);
-    body.setFill(255);
+    body.setFill(255,255,255);
     body.setFriction(0);
     body.setPosition(x,y);
     world.add(body);
@@ -46,7 +46,6 @@ class Player
     pwr = 0.0;
     for(int i=0; i<128; i++)
       pwr += fft.getBand(i);
-    body.setFill(pwr);
     body.setStrokeWeight(pwr/200.0);
     body.setStroke(pwr);
     body.addForce(0,-pwr*2.0);
