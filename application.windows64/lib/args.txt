@@ -1,3 +1,0 @@
- -Xms64m -Xmx2000m
-vimtest
-vimtest.jar,core.jar,jogl-all.jar,gluegen-rt.jar,jogl-all-natives-windows-amd64.jar,gluegen-rt-natives-windows-amd64.jar,tritonus_share.jar,minim.jar,tritonus_aos.jar,jl1.0.jar,minim-spi.jar,jsminim.jar,mp3spi1.9.4.jar,JBox2D-2.0.1-b250-Library.jar,fisica.jar

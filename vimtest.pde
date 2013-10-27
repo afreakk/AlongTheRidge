@@ -53,6 +53,7 @@ Minim minim;
 AudioPlayer audio;
 void setup()
 {
+  frame.setTitle("AlongTheRidge");
   minim = new Minim(this);
   soundH = new SoundH();
   initrColors();
